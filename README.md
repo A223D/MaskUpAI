@@ -1,10 +1,10 @@
 ## Inspiration
-The inspiration behind MaskUpAI was creating a difference on both the high levels and the grassroots level. At the grassroots level, we could make sure that people are wearing masks before entering a business or schools. This is especially relevant now as the fear COVID is going down. Whether or not it seems scary, it is a deadly diseases that has killed far more people than necessary.
+The inspiration behind MaskUpAI was creating a difference on both the high levels and the grassroots level. At the grassroots level, we could make sure that people are wearing masks before entering a business or schools. This is especially relevant now as the fear COVID is going down. Whether or not it seems scary, it is a deadly disease that has killed far more people than necessary.
 
-At a higher level, we could inform governments on how many people are not wearing masks in an area. This would help them know where to properly enforce mask regulations and educate people on why they are required. 
+At a higher level, we could inform governments on how many people are not wearing masks in an area. This would help them know where to properly enforce mask regulations and educate people on why masks are required. 
 
 ## What it does
-MaskUpAI is a small device which consists of a raspberry pi which is connected to a camera and a speaker. This raspberry pi is running a tensorflow model which can differentiate between people who are wearing a mask and people who are not. Many of these small and cost-effective devices can be placed outside multiple businesses. 
+MaskUpAI is a small device which consists of a raspberry pi which is connected to a camera and a speaker. This raspberry pi is running a tensorflow model which can differentiate between people who are wearing a mask and people who are not. Many of these **small and cost-effective devices** can be placed outside multiple businesses and schools in an area. 
 
 When the device senses that a person is not wearing a mask, a message is played through the speaker requesting that person to wear a mask and come back. Simultaneously, the raspberry pi sends a request to a Linode cloud computer running a server using Node and Express, which in turns updates a variable in the Google Firebase realtime database:
 
@@ -12,14 +12,15 @@ When the device senses that a person is not wearing a mask, a message is played 
 
 This variable in the database keeps track of how many people were found to be maskless while visiting various businesses or schools in an area. The cloud computer also has a cron job that resets this variable each night to 0. 
 
-Hence, we can get a daily report of how many people in an area are not wearing masks from our cloud computer. 
+Hence, we can get a daily report of how many people in an area are not wearing masks from our cloud computer. This is done by visiting the following link: http://172.105.110.164/show
+
 ## How we built it
 ### MaskUpAI Hardware
 MaskUpAI hardware consists of a raspberry pi with a camera and a speaker attached to it. This raspberry Pi is running a Tensorflow model which is trained to detect whether or not a person is wearing a mask. 
 
 ![MaskNoMask](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/511/435/datas/original.png)
 
-If the person is not wearing a mask, the raspberry pi plays a pre recorded message which asks the person to come back after wearing a mask. Additionally, the raspberry pi also sends a get request using CURL to the address http://172.105.110.164/update, which tells the Linode cloud computer to increment the firebase variable.
+If the person is not wearing a mask, the raspberry pi plays a pre-recorded message which asks the person to come back after wearing a mask. Additionally, the raspberry pi also sends a get request using CURL to the address http://172.105.110.164/update, which tells the Linode cloud computer to increment the firebase variable.
 
 ### MaskUpAI Cloud Software
 There is a Linode Nanode cloud machine that has been provisioned to act as the heart of all MaskUpAI devices created. This cloud computer is running Node.js and has 3 routes created with Express.js which are listed below:
@@ -50,4 +51,4 @@ Sending a get request to this link will invoke a python script on the cloud comp
 
 ## What's next for MaskUpAI
 * Creating a better looking webpage for the daily report.
-* Having long term data logging to see the effect of mask rule enforcing. Maybe we could have the Linode machine record the daily data and display it in the form of a graph.
+* Having long term data logging to see the effect of mask rule enforcing. Maybe we could have the Linode machine record the daily data and display it in the form of a graph for easy interpretation.
